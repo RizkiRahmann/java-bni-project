@@ -87,4 +87,9 @@ public class AuthController {
 
         }
     }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "OK";
+    }
 }
