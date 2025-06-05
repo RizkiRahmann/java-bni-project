@@ -2,22 +2,32 @@
 # oc new-app https://github.com/RizkiRahmann/java-bni-project.git --name=java-bni-project-git --strategy=docker
 # oc expose deployment java-bni-project-git --port=8080 --name=java-bni-project-git
 # oc expose svc/java-bni-project-git
+
 # # SET READINESS LIVENESS PROBE
 # oc set probe deployment/java-bni-project-git --readiness --get-url=http://java-bni-project-git:8080/actuator/health --initial-delay-seconds=10 --timeout-seconds=3
 # oc set probe deployment/java-bni-project-git --liveness --get-url=http://java-bni-project-git:8080/actuator/health --initial-delay-seconds=30 --timeout-seconds=5
+# OR
 # oc set probe deployment/java-bni-project-git \
 #   --readiness --get-url=http://localhost:8080/actuator/health/readiness \
 #   --initial-delay-seconds=10 --timeout-seconds=3
 # oc set probe deployment/java-bni-project-git \
 #   --liveness --get-url=http://localhost:8080/actuator/health/liveness \
 #   --initial-delay-seconds=30 --timeout-seconds=5
+
 # # RESTART DEPLOYMENT AGAR TERAPPLY PROBE
 # oc rollout restart deployment/java-bni-project-git
+
 # SET HPA
 # oc autoscale deployment java-bni-project-git \
 #   --min=1 \
 #   --max=5 \
 #   --cpu-percent=80
 
+# START BUILD JADI CLONE BARU DARI GIT
+# oc start-build java-bni-project-git --follow
 
-anggur -
+# CHECK BUILD CONFIG & WEBHOOK
+# oc get bc
+# oc get bc java-bni-project-git -o jsonpath='{.spec.triggers[?(@.type=="GitHub")].github.secret}'
+# oc describe bc java-bni-project-git
+# https://api.rm1.0a51.p1.openshiftapps.com:6443/apis/build.openshift.io/v1/namespaces/rizkirahmann-dev/buildconfigs/java-bni-project-git/webhooks/aCF9cS1N7NdYl3INkG_N/github
