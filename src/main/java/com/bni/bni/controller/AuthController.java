@@ -1,5 +1,6 @@
 package com.bni.bni.controller;
 
+import com.bni.bni.entity.User;
 import com.bni.bni.service.AuthService;
 import com.bni.bni.util.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,30 +26,38 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> body) {
         String username = body.get("username");
         String password = body.get("password");
-        String message = authService.register(username, password);
+        String email = body.getOrDefault("email", null);
+
+        String message = authService.register(username, password, email);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("status", 200);
+        response.put("status", message.equals("Registered successfully") ? 200 : 409);
         response.put("message", message);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status((int) response.get("status")).body(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> body) {
         String username = body.get("username");
         String password = body.get("password");
+
         String token = authService.login(username, password);
 
         Map<String, Object> response = new HashMap<>();
         if (token != null) {
+            Optional<User> userOpt = authService.getUserByUsername(username);
+            User user = userOpt.get();
+
             response.put("status", 200);
             response.put("token", token);
+            response.put("username", user.getUsername());
+            response.put("role", user.getRole());
             response.put("message", "Login Berhasil");
             return ResponseEntity.ok(response);
         } else {
             response.put("status", 401);
-            response.put("message", "Invalid credentials");
+            response.put("message", "Invalid credentials or inactive account");
             return ResponseEntity.status(401).body(response);
         }
     }
@@ -85,12 +95,6 @@ public class AuthController {
             response.put("status", 401);
             response.put("message", "Token tidak valid");
             return ResponseEntity.status(401).body(response);
-
         }
-    }
-
-    @GetMapping("/health")
-    public String healthCheck() {
-        return "OK";
     }
 }

@@ -23,54 +23,48 @@ public class User {
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
-    public User() {
-      // default constructor
-    }
+    @Column(name = "updated_at", nullable = false)
+    private OffsetDateTime updatedAt;
 
-    public User(String username, String passwordHash, String role, OffsetDateTime createdAt) {
-        this.username = username;
-        this.passwordHash = passwordHash;
-        this.role = role;
-        this.createdAt = createdAt;
-    }
+    @Column(name = "email_address")
+    private String emailAddress;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    // Default constructor
+    public User() {}
 
-    public String getUsername() {
-        return username;
-    }
+    // Getters and setters
+    public Long getId() { return id; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public String getPasswordHash() {
-        return passwordHash;
-    }
+    public String getUsername() { return username; }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getRole() {
-        return role;
-    }
+    public String getPasswordHash() { return passwordHash; }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
-    public OffsetDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public String getRole() { return role; }
 
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public void setRole(String role) { this.role = role; }
+
+    public OffsetDateTime getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
+
+    public OffsetDateTime getUpdatedAt() { return updatedAt; }
+
+    public void setUpdatedAt(OffsetDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public String getEmailAddress() { return emailAddress; }
+
+    public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
+
+    public Boolean getIsActive() { return isActive; }
+
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 }
