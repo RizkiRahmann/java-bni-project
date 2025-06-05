@@ -23,6 +23,12 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public String register(String username, String password, String email) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username must not be empty");
+        }
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password must not be empty");
+        }
         if (repo.existsByUsername(username)) {
             return "User already exists";
         }
@@ -36,7 +42,7 @@ public class AuthService {
         user.setCreatedAt(now);
         user.setUpdatedAt(now);
         user.setIsActive(true);
-        user.setEmailAddress(email); // Bisa null, karena kolom ini NULLABLE
+        user.setEmailAddress(email);
 
         repo.save(user);
         return "Registered successfully";

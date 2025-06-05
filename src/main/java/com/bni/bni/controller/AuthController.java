@@ -24,17 +24,27 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> body) {
-        String username = body.get("username");
-        String password = body.get("password");
-        String email = body.getOrDefault("email", null);
-
-        String message = authService.register(username, password, email);
-
         Map<String, Object> response = new HashMap<>();
-        response.put("status", message.equals("Registered successfully") ? 200 : 409);
-        response.put("message", message);
+        try {
+            String username = body.get("username");
+            String password = body.get("password");
+            String email = body.getOrDefault("email", null);
 
-        return ResponseEntity.status((int) response.get("status")).body(response);
+            String message = authService.register(username, password, email);
+
+            response.put("status", message.equals("Registered successfully") ? 200 : 409);
+            response.put("message", message);
+
+            return ResponseEntity.status((int) response.get("status")).body(response);
+        } catch (IllegalArgumentException e) {
+            response.put("status", 400);
+            response.put("message", e.getMessage());
+            return ResponseEntity.badRequest().body(response);
+        } catch (Exception e) {
+            response.put("status", 500);
+            response.put("message", "Internal Server Error: " + e.getMessage());
+            return ResponseEntity.status(500).body(response);
+        }
     }
 
     @PostMapping("/login")

@@ -31,3 +31,10 @@
 # oc get bc java-bni-project-git -o jsonpath='{.spec.triggers[?(@.type=="GitHub")].github.secret}'
 # oc describe bc java-bni-project-git
 # https://api.rm1.0a51.p1.openshiftapps.com:6443/apis/build.openshift.io/v1/namespaces/rizkirahmann-dev/buildconfigs/java-bni-project-git/webhooks/aCF9cS1N7NdYl3INkG_N/github
+
+# UNTUK MENAMBAH GITHUB WOEKFLOW SECRETS
+OC_BUILD_NAME = java-bni-project-git
+OC_NAMESPACE = rizkirahmann-dev
+OC_SERVER = https://api.rm1.0a51.p1.openshiftapps.com:6443
+OC_TOKEN = sha256~t4Q3i1B2u6uAdjzA5O4Wnk5S0pT-ZmYWvRSfAWXNeho
+oc login --token=sha256~t4Q3i1B2u6uAdjzA5O4Wnk5S0pT-ZmYWvRSfAWXNeho --server=https://api.rm1.0a51.p1.openshiftapps.com:6443
