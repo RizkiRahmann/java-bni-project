@@ -1,20 +1,19 @@
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
-metadata:
-  name: bni-auth-build
-spec:
-  source:
-    type: Git
-    git:
-      uri: https://github.com/RizkiRahmann/java-bni-project # ganti dengan Git repo kamu
-  strategy:
-    type: Source
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        name: openjdk-17:latest
-        namespace: openshift
-  output:
-    to:
-      kind: ImageStreamTag
-      name: bni-auth-app:latest
+# apiVersion: build.openshift.io/v1
+# kind: BuildConfig
+# metadata:
+#   name: bni-auth-build
+# spec:
+#   source:
+#     type: Git
+#     git:
+#       uri: https://github.com/RizkiRahmann/java-bni-project
+#   strategy:
+#     type: Source
+#     sourceStrategy:
+#       from:
+#         kind: ImageStreamTag
+#         name: openjdk-21:latest
+#   output:
+#     to:
+#       kind: ImageStreamTag
+#       name: bni-auth-app:latest

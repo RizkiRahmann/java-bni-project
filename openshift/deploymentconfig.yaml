@@ -1,40 +1,40 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
-metadata:
-  name: bni-auth-app
-spec:
-  replicas: 1
-  selector:
-    app: bni-auth-app
-  template:
-    metadata:
-      labels:
-        app: bni-auth-app
-    spec:
-      containers:
-        - name: bni-auth-container
-          image: image-registry.openshift-image-registry.svc:5000/rizkirahmann-dev/bni-auth-app:latest
-          ports:
-            - containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 30
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-  triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChangeParams:
-        automatic: true
-        containerNames:
-          - bni-auth-container
-        from:
-          kind: ImageStreamTag
-          name: bni-auth-app:latest
+# apiVersion: apps.openshift.io/v1
+# kind: DeploymentConfig
+# metadata:
+#   name: bni-auth-app
+# spec:
+#   replicas: 1
+#   selector:
+#     app: bni-auth-app
+#   template:
+#     metadata:
+#       labels:
+#         app: bni-auth-app
+#     spec:
+#       containers:
+#         - name: bni-auth-container
+#           image: image-registry.openshift-image-registry.svc:5000/rizkirahmann-dev/bni-auth-app:latest
+#           ports:
+#             - containerPort: 8080
+#           livenessProbe:
+#             httpGet:
+#               path: /actuator/health
+#               port: 8080
+#             initialDelaySeconds: 10
+#             periodSeconds: 30
+#           readinessProbe:
+#             httpGet:
+#               path: /actuator/health
+#               port: 8080
+#             initialDelaySeconds: 5
+#             periodSeconds: 10
+#   triggers:
+#     - type: ConfigChange
+#     - type: ImageChange
+#       imageChangeParams:
+#         automatic: true
+#         containerNames:
+#           - bni-auth-container
+#         from:
+#           kind: ImageStreamTag
+#           name: bni-auth-app:latest
