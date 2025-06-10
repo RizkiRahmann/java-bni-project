@@ -101,6 +101,11 @@
 				<version>6.2.7.Final</version>
 			</dependency>
 		-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>annotationProcessor</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -111,5 +116,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
