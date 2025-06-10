@@ -52,6 +52,6 @@
 # oc new-app jenkins-ephemeral
 
 # BUILD JENKINS
-oc new-build --name=java-bni-project-pipeline \
-  --strategy=pipeline \
-  --code=https://github.com/RizkiRahmann/java-bni-project
+# oc new-build --name=java-bni-project-pipeline \
+#   --strategy=pipeline \
+#   --code=https://github.com/RizkiRahmann/java-bni-project
