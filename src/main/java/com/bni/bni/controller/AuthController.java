@@ -63,7 +63,7 @@ public class AuthController {
             response.put("token", token);
             response.put("username", user.getUsername());
             response.put("role", user.getRole());
-            response.put("message", "Login Berhasil");
+            response.put("message", "Login Berhasil Sekali");
             return ResponseEntity.ok(response);
         } else {
             response.put("status", 401);
