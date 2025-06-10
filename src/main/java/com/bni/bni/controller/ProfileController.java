@@ -18,6 +18,7 @@ public class ProfileController {
         return ResponseEntity.ok(service.createProfile(profile));
     }
 
+    
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfile(@PathVariable Long id) {
         return service.getProfileById(id)
